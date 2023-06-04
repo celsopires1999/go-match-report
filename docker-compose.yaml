@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    container_name: go-match-report-app
+    volumes:
+      - .:/home/dev/src
+    ports:
+      - 8000:8000
+
+  db:
+    image: postgres:13
+    restart: always
+    container_name: go-match-report-db
+    environment:
+      POSTGRES_USER: match
+      POSTGRES_PASSWORD: match
+      POSTGRES_DB: dev
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: go-match-report-adminer
+    ports:
+      - 8080:8080
