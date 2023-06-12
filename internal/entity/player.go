@@ -6,7 +6,7 @@ import (
 )
 
 type Player struct {
-	Id     string  `valid:"uuid"`
+	ID     string  `valid:"uuid"`
 	Name   string  `valid:"required~Name is required"`
 	Tenant *Tenant `valid:"required~Tenant is required"`
 }
@@ -17,7 +17,7 @@ func init() {
 
 func NewPlayer(name string, tenant *Tenant) (*Player, error) {
 	player := &Player{
-		Id:     uuid.New().String(),
+		ID:     uuid.New().String(),
 		Name:   name,
 		Tenant: tenant,
 	}

@@ -22,11 +22,11 @@ func NewTenantRepositoryDb(dbt *sql.DB) *TenantRepositoryDb {
 	}
 }
 
-func (r *TenantRepositoryDb) CreateTenant(ctx context.Context, tenant *entity.Tenant) error {
+func (r *TenantRepositoryDb) Create(ctx context.Context, tenant *entity.Tenant) error {
 	return r.Queries.CreateTenant(
 		ctx,
 		db.CreateTenantParams{
-			ID:        tenant.Id,
+			ID:        tenant.ID,
 			Name:      tenant.Name,
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
@@ -34,25 +34,25 @@ func (r *TenantRepositoryDb) CreateTenant(ctx context.Context, tenant *entity.Te
 	)
 }
 
-func (r *TenantRepositoryDb) UpdateTenant(ctx context.Context, tenant *entity.Tenant) error {
+func (r *TenantRepositoryDb) Update(ctx context.Context, tenant *entity.Tenant) error {
 	return r.Queries.UpdateTenant(
 		ctx,
 		db.UpdateTenantParams{
-			ID:        tenant.Id,
+			ID:        tenant.ID,
 			Name:      tenant.Name,
 			UpdatedAt: time.Now(),
 		},
 	)
 }
 
-func (r *TenantRepositoryDb) DeleteTenant(ctx context.Context, id string) error {
+func (r *TenantRepositoryDb) Delete(ctx context.Context, id string) error {
 	return r.Queries.DeleteTenant(
 		ctx,
 		id,
 	)
 }
 
-func (r *TenantRepositoryDb) FindTenantById(ctx context.Context, id string) (*entity.Tenant, error) {
+func (r *TenantRepositoryDb) FindById(ctx context.Context, id string) (*entity.Tenant, error) {
 	res, err := r.Queries.FindTenantById(ctx, id)
 
 	if err != nil {

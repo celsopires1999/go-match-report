@@ -7,8 +7,8 @@ import (
 )
 
 type PlayerRepository interface {
-	FindPlayerById(ctx context.Context, id string) (*entity.Tenant, error)
-	CreatePlayer(ctx context.Context, tenant *entity.Tenant) error
-	UpdatePlayer(ctx context.Context, tenant *entity.Tenant) error
-	DeletePlayer(ctx context.Context, id string) error
+	FindById(ctx context.Context, id string) (*entity.Tenant, error)
+	Create(ctx context.Context, tenant *entity.Tenant) error
+	Update(ctx context.Context, tenant *entity.Tenant) error
+	Delete(ctx context.Context, id string) error
 }

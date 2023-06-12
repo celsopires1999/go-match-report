@@ -12,7 +12,7 @@ func TestNewTenant(t *testing.T) {
 		name := "Veterans' Football League"
 		tenant, _ := entity.NewTenant(name)
 		assert.NotNil(t, tenant)
-		assert.NotEmpty(t, tenant.Id)
+		assert.NotEmpty(t, tenant.ID)
 		assert.Equal(t, name, tenant.Name)
 	})
 	t.Run("should return error when name is empty", func(t *testing.T) {

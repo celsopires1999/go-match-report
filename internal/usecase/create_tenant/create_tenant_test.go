@@ -1,13 +1,12 @@
-package repository_test
+package create_tenant_test
 
 import (
-	"context"
 	"database/sql"
 	"testing"
 
 	"github.com/celsopires1999/matchreport/configs"
-	"github.com/celsopires1999/matchreport/internal/entity"
 	"github.com/celsopires1999/matchreport/internal/infra/repository"
+	"github.com/celsopires1999/matchreport/internal/usecase/create_tenant"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/suite"
 
@@ -61,13 +60,17 @@ func TestTenantDBTestSuite(t *testing.T) {
 	suite.Run(t, new(TenantDBTestSuite))
 }
 
-func (s *TenantDBTestSuite) TestCreateTenant() {
+func (s *TenantDBTestSuite) TestCreateTenantUseCase() {
 	s.Run("should create tenant", func() {
 		name := "Veterans' Football League"
-		tenant, _ := entity.NewTenant(name)
+		input := create_tenant.CreateTenantInputDTO{
+			Name: name,
+		}
 		tenantRepo := repository.NewTenantRepositoryDb(s.db)
-		ctx := context.Background()
-		err := tenantRepo.Create(ctx, tenant)
+		tenantUseCase := create_tenant.NewCreateTenantUseCase(tenantRepo)
+		output, err := tenantUseCase.Execute(input)
+		s.NotNil(output)
 		s.Nil(err)
+		s.Equal(name, output.Name)
 	})
 }

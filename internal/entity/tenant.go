@@ -6,7 +6,7 @@ import (
 )
 
 type Tenant struct {
-	Id   string `valid:"uuid"`
+	ID   string `valid:"uuid"`
 	Name string `valid:"required~Name is required"`
 }
 
@@ -24,7 +24,7 @@ func NewTenantWithId(id string, name string) (*Tenant, error) {
 
 func buildTenant(id string, name string) (*Tenant, error) {
 	tenant := &Tenant{
-		Id:   uuid.New().String(),
+		ID:   uuid.New().String(),
 		Name: name,
 	}
 

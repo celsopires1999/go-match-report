@@ -13,7 +13,7 @@ func TestNewPlayer(t *testing.T) {
 		tenant, _ := entity.NewTenant("Veterans' Football League")
 		player, _ := entity.NewPlayer(name, tenant)
 		assert.NotNil(t, player)
-		assert.NotEmpty(t, player.Id)
+		assert.NotEmpty(t, player.ID)
 		assert.Equal(t, name, player.Name)
 		assert.Equal(t, tenant, player.Tenant)
 	})
