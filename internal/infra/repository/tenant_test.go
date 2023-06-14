@@ -30,7 +30,7 @@ func (s *TenantDBTestSuite) SetupSuite() {
 
 	configs := configs.LoadConfig("../../../")
 
-	conn, err := sql.Open("postgres", configs.DBConn)
+	conn, err := sql.Open(configs.DBDriver, configs.DBConn)
 	if err != nil {
 		panic(err)
 	}

@@ -5,7 +5,8 @@ import (
 )
 
 type conf struct {
-	DBConn string `mapstructure:"DB_CONNECTION"`
+	DBDriver string `mapstructure:"DB_DRIVER"`
+	DBConn   string `mapstructure:"DB_CONNECTION"`
 }
 
 func LoadConfig(path string) *conf {

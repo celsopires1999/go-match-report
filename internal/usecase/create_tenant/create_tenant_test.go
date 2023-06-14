@@ -1,6 +1,7 @@
 package create_tenant_test
 
 import (
+	"context"
 	"database/sql"
 	"testing"
 
@@ -29,7 +30,7 @@ func (s *TenantDBTestSuite) SetupSuite() {
 
 	configs := configs.LoadConfig("../../../")
 
-	conn, err := sql.Open("postgres", configs.DBConn)
+	conn, err := sql.Open(configs.DBDriver, configs.DBConn)
 	if err != nil {
 		panic(err)
 	}
@@ -42,7 +43,7 @@ func (s *TenantDBTestSuite) SetupSuite() {
 	err = m.Up()
 	s.Nil(err)
 
-	db, err := sql.Open("postgres", configs.DBConn)
+	db, err := sql.Open(configs.DBDriver, configs.DBConn)
 
 	s.NotNil(db)
 	s.Nil(err)
@@ -63,12 +64,13 @@ func TestTenantDBTestSuite(t *testing.T) {
 func (s *TenantDBTestSuite) TestCreateTenantUseCase() {
 	s.Run("should create tenant", func() {
 		name := "Veterans' Football League"
-		input := create_tenant.CreateTenantInputDTO{
+		input := create_tenant.InputDTO{
 			Name: name,
 		}
 		tenantRepo := repository.NewTenantRepositoryDb(s.db)
 		tenantUseCase := create_tenant.NewCreateTenantUseCase(tenantRepo)
-		output, err := tenantUseCase.Execute(input)
+		ctx := context.Background()
+		output, err := tenantUseCase.Execute(ctx, input)
 		s.NotNil(output)
 		s.Nil(err)
 		s.Equal(name, output.Name)

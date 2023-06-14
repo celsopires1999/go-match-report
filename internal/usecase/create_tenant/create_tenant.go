@@ -7,26 +7,26 @@ import (
 	"github.com/celsopires1999/matchreport/internal/gateway"
 )
 
-type CreateTenantInputDTO struct {
-	Name string
+type InputDTO struct {
+	Name string `json:"name"`
 }
 
-type CreateTenantOutputDTO struct {
-	ID   string
-	Name string
+type OutputDTO struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
 }
 
-type CreateTenantUseCase struct {
+type UseCase struct {
 	TenantGateway gateway.TenantRepository
 }
 
-func NewCreateTenantUseCase(tenantGateway gateway.TenantRepository) *CreateTenantUseCase {
-	return &CreateTenantUseCase{
+func NewCreateTenantUseCase(tenantGateway gateway.TenantRepository) *UseCase {
+	return &UseCase{
 		TenantGateway: tenantGateway,
 	}
 }
 
-func (uc *CreateTenantUseCase) Execute(input CreateTenantInputDTO) (*CreateTenantOutputDTO, error) {
+func (uc *UseCase) Execute(ctx context.Context, input InputDTO) (*OutputDTO, error) {
 	tenant, err := entity.NewTenant(input.Name)
 	if err != nil {
 		return nil, err
@@ -36,7 +36,7 @@ func (uc *CreateTenantUseCase) Execute(input CreateTenantInputDTO) (*CreateTenan
 		return nil, err
 	}
 
-	output := &CreateTenantOutputDTO{
+	output := &OutputDTO{
 		ID:   tenant.ID,
 		Name: tenant.Name,
 	}
