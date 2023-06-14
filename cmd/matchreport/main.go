@@ -19,10 +19,14 @@ func main() {
 	}
 	defer conn.Close()
 
+	handler := initDependencies(conn)
+	ws := webserver.NewWebServer(":" + configs.WebServerPort)
+	ws.RegisterRoutes(handler)
+	ws.Start()
+}
+
+func initDependencies(conn *sql.DB) *web.WebTenantHandler {
 	tenantRepository := repository.NewTenantRepositoryDb(conn)
 	createTenantUseCase := create_tenant.NewCreateTenantUseCase(tenantRepository)
-	handler := web.NewWebTenantHandler(createTenantUseCase)
-	ws := webserver.NewWebServer(":8888")
-	ws.Router.POST("/tenants", handler.CreateTenant)
-	ws.Start()
+	return web.NewWebTenantHandler(createTenantUseCase)
 }

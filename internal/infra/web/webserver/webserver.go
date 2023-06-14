@@ -3,6 +3,7 @@ package webserver
 import (
 	"log"
 
+	"github.com/celsopires1999/matchreport/internal/infra/web"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,8 +19,9 @@ func NewWebServer(webServerPort string) *WebServer {
 	}
 }
 
-func (s *WebServer) RegisterRoutes() {
-
+func (s *WebServer) RegisterRoutes(handler *web.WebTenantHandler) {
+	s.Router.GET("/health", web.HealthHandler)
+	s.Router.POST("/tenants", handler.CreateTenant)
 }
 
 func (s *WebServer) Start() {

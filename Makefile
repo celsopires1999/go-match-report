@@ -6,4 +6,10 @@ migrateup:
 migratedown:
 	migrate -path=sql/migrations -database "$(DB_URL)" -verbose drop
 
-.PHONY:  migrateup migratedown
+test:
+	go test -cover ./...
+
+test-clean:
+	go clean --testcache
+
+.PHONY:  migrateup migratedown test test-clean
