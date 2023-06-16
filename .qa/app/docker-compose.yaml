@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  app:
+    image: celsopires/matchreport:latest
+    container_name: qa-go-match-report-app
+    env_file:
+      - .env
+    ports:
+      - 8081:8080
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"

@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    container_name: qa-go-match-report-db
+    environment:
+      POSTGRES_USER: qa-match
+      POSTGRES_PASSWORD: qa-match
+      POSTGRES_DB: qa
+    volumes:
+      - .docker/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"  
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: qa-go-match-report-adminer
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"  

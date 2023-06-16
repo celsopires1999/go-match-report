@@ -1,0 +1,11 @@
+### Health
+GET http://localhost:8081/health HTTP/1.1
+Content-Type: application/json
+
+### Tenant 1
+POST http://localhost:8081/tenants HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Fut Veteranos"
+}
