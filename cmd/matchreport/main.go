@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/celsopires1999/matchreport/configs"
 	"github.com/celsopires1999/matchreport/internal/infra/repository"
@@ -12,12 +13,19 @@ import (
 )
 
 func main() {
+	log.Println("Match Report as of 18-06-2023 at 20:51")
+
 	configs := configs.LoadConfig(".")
 	conn, err := sql.Open(configs.DBDriver, configs.DBConn)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer conn.Close()
+
+	err = conn.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	handler := initDependencies(conn)
 	ws := webserver.NewWebServer(":" + configs.WebServerPort)
