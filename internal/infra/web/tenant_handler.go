@@ -1,6 +1,8 @@
 package web
 
 import (
+	"net/http"
+
 	"github.com/celsopires1999/matchreport/internal/usecase/create_tenant"
 	"github.com/gin-gonic/gin"
 )
@@ -19,14 +21,14 @@ func (h *WebTenantHandler) CreateTenant(c *gin.Context) {
 	var input create_tenant.InputDTO
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(400, err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	output, err := h.CreateTenantUseCase.Execute(c.Request.Context(), input)
 	if err != nil {
-		c.JSON(400, err.Error())
+		c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	c.JSON(200, output)
+	c.JSON(http.StatusOK, output)
 }

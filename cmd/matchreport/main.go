@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	log.Println("Match Report as of 18-06-2023 at 20:51")
+	log.Println("Match Report as of 22-06-2023 at 22:08")
 
 	configs := configs.LoadConfig(".")
 	conn, err := sql.Open(configs.DBDriver, configs.DBConn)
